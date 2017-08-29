@@ -1,0 +1,72 @@
+<!Doctype>
+<html>
+
+<head>
+    <title>project 8</title>
+		<script src="script/jquery.min.js"></script>
+		<script src="script/knockout.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style/style.css">
+		<!--google fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row" style="padding:10px ">
+            <div class="col-md-12 header">
+                <h1>Chandigarh</h1>
+                <p>City Beautiful</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--knockout js to bind-->
+                <ul class="nav navbar-nav" data-bind="foreach:locations">
+                    <li class="list">
+                        <a data-bind="visible:show, event:{click:$parent.selectAll},text:title"></a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" data-bind="value: inputText, valueUpdate: 'afterkeydown', event: {keyup: filtersearch}">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="padding:10px">
+            <div class="col-md-12" id="map"></div>
+        </div>
+    </div>
+    <script>
+        var map;
+
+        function initMap() {
+            // creates a new map - only center and zoom are required.
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 30.7333,
+                    lng: 76.7794
+                },
+                zoom: 12
+            });
+            ko.applyBindings(new viewmodel());
+        }
+        function googleerror()
+        {
+          alert("Map is not loading properly00");
+        }
+
+
+    </script>
+    <script src="script/app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdCgg-3CL9vTj0Tt499LPYgvmGNt3lSk4&v=3&callback=initMap" onerror="googleerror()">
+        //google api
+    </script>
+
+</body>
+
+</html>
